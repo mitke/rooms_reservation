@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Rezervuši{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li>
+    <h1 style="color: red;">{{ message }}</h1>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<p>Ulogovani korisnik: {{ user }} (<strong>{{ user.userprofile.medical_title }} {{ user.first_name }} {{ user.last_name }}</strong>) <a href="{% url 'logout' %}" class="btn btn-success btn-sm">Logout</a></p>
+<h1 class=" display-6">Rezervacija prostorije "{{ room.name }}{{ room_name }}"</h1>
+<br />
+<form action="" method="post" class="row g-4">
+  {% csrf_token %}
+  <div class="col-md-4">
+    {{ form.start_time.label_tag }}
+    {{ form.start_time }}
+  </div>
+  <div class="col-md-4">
+    {{ form.end_time.label_tag }}
+    {{ form.end_time }}
+  </div>
+  <div class="col-md-6">
+    {{ form.organizer_name }}
+  </div>
+  <div class="col-md-6">
+    {{ form.purpose }}
+  </div>
+  <div class="col-md-6">
+    {{ form.expected_participants }}
+  </div>
+  <div class="col-md-6">
+    {{ form.needs_projector.label_tag }}
+    {{ form.needs_projector }}
+  </div>
+
+  {% if edit_mode %}
+  <button type="submit" class="btn btn-success">Promeni</button>
+  {% else %}
+  <button type="submit" class="btn btn-success">Rezerviši</button>
+  {% endif %}
+</form>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+<h2>Unesi podatke za registraciju</h2>
+<p>&NoBreak;</p>
+<form method="post" action="{% url 'register' %}" class="row g-3">
+  {% csrf_token %}
+
+  <div class="col-md-8">
+    {{ user_form.username }}<br />
+  </div>
+  <div class="col-md-6">
+    {{ user_form.password1.label_tag }}
+    {{ user_form.password1 }}
+    <ul>
+      <li>Password ne sme da sadrži neke od ostalih vaših informacija.</li>
+      <li>Mora da ima najmanje 8 karaktera.</li>
+      <li>Ne može da bude samo numerički.</li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    {{ user_form.password2.label_tag }}
+    {{ user_form.password2 }}
+  </div>
+  <div class="col-md-4">
+    {{ user_form.first_name }}
+  </div>
+  <div class="col-md-4">
+    {{ user_form.last_name}}
+  </div>
+  <div class="col-md-4">
+    {{ user_form.email }}
+  </div>
+  <div class="col-md-4">
+    {{ user_form.telephone_number }}
+  </div>
+  <div class="col-md-4">
+    {{ user_form.medical_title }}
+  </div>
+  <button type="submit" class="btn btn-success col-md-4">Potvrdi</button>
+</form>
+
+{% if user_form.errors %}
+<div class="alert alert-danger">
+  {{ user_form.errors }}
+</div>
+{% endif %}
+
+{% endblock %}

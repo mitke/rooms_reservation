@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Rezervacije{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{% if messages %}
+
+{% for message in messages %}
+<!--<h1 class="alert alert-danger" style="color: red;">{{ message }}</h1>-->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4 class="alert alert-danger" style="color: red;">{{ message }}</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var myModal = new bootstrap.Modal(document.getElementById('myModal'), {})
+  myModal.show()
+</script>
+{% endfor %}
+
+{% endif %}
+<p class="mt-2">Ulogovani korisnik: {{ user }} (<strong>{{ user.userprofile.medical_title }} {{ user.first_name }} {{ user.last_name }}</strong>) <a href="{% url 'logout' %}" class="btn btn-success btn-sm">Logout</a></p>
+<h1 class=" display-5">Rezervacije</h1>
+
+{% for room, bookings in room_availability.items %}
+
+<div class="alert alert-success">
+  <h3 class="display-6"> {{ room.name }} <a href="{% url 'book_room' room.id %} " class="btn btn-success"> Nova rezervacija</a></h3>
+</div>
+<h5 class="text-secondary">Kapacitet: {{ room.capacity }} sedećih mesta.<br />
+
+  {% if room.projector %}
+  Ima projektor
+  {% else %}
+  Nema projektor
+  {% endif %}
+</h5>
+<h3>Rezervisani termini:</h3>
+<table class="table table-striped table-bordered table-responsive-sm">
+  <tr class="table-dark">
+    <th>Od</th>
+    <th>Do</th>
+    <th>korisnik</th>
+    <th>organizator</th>
+    <th>svrha</th>
+    <th>br.učesnika</th>
+    <th>brisanje</th>
+    <th>menjanje</th>
+  </tr>
+  {% for book in bookings %}
+  <tr>
+    <td>{{ book.start_time|date:"d.m.Y" }} {{ book.start_time|time:"H:i" }}</td>
+    <td>{{ book.end_time|date:"d.m.Y" }} {{ book.end_time|time:"H:i" }}</td>
+    <td>{{ book.user.username }} ({{ book.user.userprofile.medical_title}} {{ book.user.first_name }} {{ book.user.last_name }})</td>
+    <td>{{ book.organizer_name }}</td>
+    <td>{{ book.purpose }}</td>
+    <td>{{ book.expected_participants }}</td>
+    <td>
+      {% if request.user == book.user %}
+      <form style="display: inline-block;" action="{% url 'delete_booking' book.id %} " method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Izbriši</button>
+      </form>
+    </td>
+    <td>
+      <form style="display: inline-block;" action="{% url 'edit_booking' book.id %} " method="get">
+        <button type="submit" class="btn btn-success">Promeni</button>
+      </form>
+      {% else %}
+    </td>
+    <td>
+      {% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <p>
+    Nema rezervacija u narednom periodu
+  </p>
+  {% endfor %}
+</table>
+
+{% endfor %}
+
+
+{% else %}
+
+<h2>Dobrodošli u aplikaciju za rezervacije</h2>
+<h4><a href="{% url 'login' %}" class="btn btn-success">Login</a>&NoBreak;
+  <a href="{% url 'register' %}" class="btn btn-success">Registruj se</a>
+</h4>
+<p></p>
+
+{% endif %}
+
+{% endblock %}
