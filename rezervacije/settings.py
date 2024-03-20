@@ -31,9 +31,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    #'bookingRooms',
-    #'bootstrap_datepicker_plus',
-    #'bootstrap4',
     'booking',
     'django.contrib.admin',
     'django.contrib.auth',

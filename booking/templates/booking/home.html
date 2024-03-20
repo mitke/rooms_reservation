@@ -33,13 +33,17 @@
 {% endfor %}
 
 {% endif %}
-<p class="mt-2">Ulogovani korisnik: {{ user }} (<strong>{{ user.userprofile.medical_title }} {{ user.first_name }} {{ user.last_name }}</strong>) <a href="{% url 'logout' %}" class="btn btn-success btn-sm">Logout</a></p>
-<h1 class=" display-5">Rezervacije</h1>
+{% endif %}
 
 {% for room, bookings in room_availability.items %}
 
-<div class="alert alert-success">
-  <h3 class="display-6"> {{ room.name }} <a href="{% url 'book_room' room.id %} " class="btn btn-success"> Nova rezervacija</a></h3>
+<div class="alert alert-success mt-5">
+  <h3 class="display-6">
+    {{ room.name }}
+    {% if user.is_authenticated %}
+    <a href="{% url 'book_room' room.id %} " class="btn btn-success"> Nova rezervacija</a>
+    {% endif %}
+  </h3>
 </div>
 <h5 class="text-secondary">Kapacitet: {{ room.capacity }} sedećih mesta.<br />
 
@@ -50,27 +54,36 @@
   {% endif %}
 </h5>
 <h3>Rezervisani termini:</h3>
+{% if bookings %}
 <table class="table table-striped table-bordered table-responsive-sm">
   <tr class="table-dark">
     <th>Od</th>
     <th>Do</th>
-    <th>korisnik</th>
+    <th>ubacio</th>
     <th>organizator</th>
     <th>svrha</th>
     <th>br.učesnika</th>
+    {% if user.is_authenticated %}
     <th>brisanje</th>
     <th>menjanje</th>
+    {% endif %}
   </tr>
   {% for book in bookings %}
   <tr>
     <td>{{ book.start_time|date:"d.m.Y" }} {{ book.start_time|time:"H:i" }}</td>
     <td>{{ book.end_time|date:"d.m.Y" }} {{ book.end_time|time:"H:i" }}</td>
-    <td>{{ book.user.username }} ({{ book.user.userprofile.medical_title}} {{ book.user.first_name }} {{ book.user.last_name }})</td>
+    <td>{{ book.user.username }} ({{ book.user.first_name }} {{ book.user.last_name }})</td>
     <td>{{ book.organizer_name }}</td>
     <td>{{ book.purpose }}</td>
-    <td>{{ book.expected_participants }}</td>
     <td>
-      {% if request.user == book.user %}
+      {% if book.expected_participants %}
+      {{ book.expected_participants }}
+      {% else %}
+      Nepoznato
+      {% endif %}
+    </td>
+    {% if user.is_authenticated %}
+    <td>
       <form style="display: inline-block;" action="{% url 'delete_booking' book.id %} " method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-success">Izbriši</button>
@@ -80,11 +93,10 @@
       <form style="display: inline-block;" action="{% url 'edit_booking' book.id %} " method="get">
         <button type="submit" class="btn btn-success">Promeni</button>
       </form>
-      {% else %}
+
     </td>
-    <td>
-      {% endif %}
-    </td>
+
+    {% endif %}
   </tr>
   {% empty %}
   <p>
@@ -92,18 +104,12 @@
   </p>
   {% endfor %}
 </table>
-
+{% else %}
+<p>Nema rezervacija u narednom periodu</p>
+{% endif%}
 {% endfor %}
 
 
-{% else %}
 
-<h2>Dobrodošli u aplikaciju za rezervacije</h2>
-<h4><a href="{% url 'login' %}" class="btn btn-success">Login</a>&NoBreak;
-  <a href="{% url 'register' %}" class="btn btn-success">Registruj se</a>
-</h4>
-<p></p>
-
-{% endif %}
 
 {% endblock %}

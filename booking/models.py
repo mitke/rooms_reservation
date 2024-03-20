@@ -17,7 +17,7 @@ class Bookings(models.Model):
   end_time = models.DateTimeField()
   organizer_name = models.CharField(max_length=100)
   purpose = models.TextField()
-  expected_participants = models.IntegerField()
+  expected_participants = models.IntegerField(null=True, blank=True)
   needs_projector = models.BooleanField()
 
 

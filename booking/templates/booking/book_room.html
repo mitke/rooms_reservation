@@ -13,8 +13,8 @@
 </ul>
 {% endif %}
 
-<p>Ulogovani korisnik: {{ user }} (<strong>{{ user.userprofile.medical_title }} {{ user.first_name }} {{ user.last_name }}</strong>) <a href="{% url 'logout' %}" class="btn btn-success btn-sm">Logout</a></p>
-<h1 class=" display-6">Rezervacija prostorije "{{ room.name }}{{ room_name }}"</h1>
+
+<h1 class=" display-6 mt-5">Rezervacija prostorije "{{ room.name }}{{ room_name }}"</h1>
 <br />
 <form action="" method="post" class="row g-4">
   {% csrf_token %}

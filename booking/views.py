@@ -81,7 +81,10 @@ def book_room(request, room_id):
       end_time = request.POST.get('end_time')
       end_time = datetime.strptime(end_time, "%Y-%m-%dT%H:%M")
       end_time_aware = timezone.make_aware(end_time, timezone.get_default_timezone())
-      expected_participants = int(request.POST.get('expected_participants'))
+      try:
+        expected_participants = int(request.POST.get('expected_participants'))
+      except ValueError:
+        expected_participants = 0
       needs_projector = request.POST.get('needs_projector')
       
       message = provera(start_time_aware, end_time_aware, current_time, expected_participants,
@@ -105,10 +108,10 @@ def book_room(request, room_id):
 def delete_booking(request, booking_id):
   booking = get_object_or_404(Bookings, pk=booking_id)
   
-  if request.user == booking.user:
-    booking.delete()
-  else:
-    messages.error(request, 'You do not have permission to edit this reservation.')
+  #if request.user == booking.user:
+  booking.delete()
+  #else:
+    #messages.error(request, 'You do not have permission to edit this reservation.')
   return redirect('home')
 
 
@@ -132,7 +135,10 @@ def edit_booking(request, booking_id):
       end_time = request.POST.get('end_time')
       end_time = datetime.strptime(end_time, "%Y-%m-%dT%H:%M")
       end_time_aware = timezone.make_aware(end_time, timezone.get_default_timezone())
-      expected_participants = int(request.POST.get('expected_participants'))
+      try:
+        expected_participants = int(request.POST.get('expected_participants'))
+      except ValueError:
+        expected_participants = 0
       needs_projector = request.POST.get('needs_projector')
       
       message = provera(start_time_aware, end_time_aware, current_time, expected_participants,
