@@ -1,17 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">Rezervacije |</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Amfiteatar |</a>
+    <a class="navbar-brand" href="#2">Učionica |</a>
+    <a class="navbar-brand" href="#3">Sala za sastanke leva |</a>
+    <a class="navbar-brand" href="#4">Sala za sastanke desna |</a>
 
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto me-2 mb-lg-0">
 
         {% if user.is_authenticated %}
 
-        <li class="nav-item">
+        <li class="nav-item  me-2">
           <div class="navbar-text text-light">Korisnik <strong><i>{{ user.username }}</i></strong> ({{ user.first_name }} {{ user.last_name }}) |</div>
         </li>
-        <li class=" nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %} ">Logout</a>
         </li>
 
