@@ -69,7 +69,7 @@
     {% endif %}
   </tr>
 
-  q{% for book in bookings %}
+  {% for book in bookings %}
   <tr>
     <td>{{ book.start_time|date:"d.m." }} - {{ book.start_time|date:"l" }} </td>
     <td>{{ book.start_time|time:"H:i" }}</td>
