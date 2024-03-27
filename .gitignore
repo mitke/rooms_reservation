@@ -162,3 +162,4 @@ cython_debug/
 migrations/
 booking/__pycache__/
 *.zip
+rezervacije/settings.py
