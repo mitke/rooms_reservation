@@ -59,7 +59,8 @@
 <table class="table table-striped table-bordered table-responsive-sm">
   <thead>
     <tr class="table-dark">
-      <th>datum</th>
+      <th>Dan</th>
+      <th>Datum</th>
       <th>Od</th>
       <th>Do</th>
       <th>organizator</th>
@@ -76,7 +77,8 @@
     {% for book in group.list %}
     <tr>
       {% ifchanged %}
-      <td class="align-middle" rowspan="{{ group.list|length }}"><strong>{{ book.start_time|date:"d.m." }} - {{ book.start_time|date:"l" }}</strong></td>
+      <td class="align-middle" rowspan="{{ group.list|length }}"><strong>{{ book.start_time|date:"l" }}</strong></td>
+      <td class="align-middle" rowspan="{{ group.list|length }}"><strong>{{ book.start_time|date:"d.m." }}</strong></td>
       {% endifchanged %}
       <td>{{ book.start_time|time:"H:i" }}</td>
       <td>{{ book.end_time|time:"H:i" }}</td>
