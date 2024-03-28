@@ -15,6 +15,7 @@ def home(request):
   room_availability = {}
 
   for soba in rooms:
+    #upcoming_bookings = Bookings.objects.filter(room=soba, start_time__gte=current_time, start_time__lt=current_time + timezone.timedelta(days=14)).order_by('start_time') # samo 14 dana
     upcoming_bookings = Bookings.objects.filter(room=soba, start_time__gte=current_time).order_by('start_time')
     room_availability[soba] = upcoming_bookings
   return render(request, 'booking/home.html', {'rooms': rooms, 'room_availability': room_availability})

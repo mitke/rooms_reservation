@@ -63,8 +63,9 @@
       <th>Datum</th>
       <th>Od</th>
       <th>Do</th>
-      <th>organizator</th>
-      <th>svrha</th>
+      <th>Organizator</th>
+      <th>Svrha</th>
+      <th>Napomena</th>
       {% if user.is_authenticated %}
       <th>brisanje</th>
       <th>menjanje</th>
@@ -84,6 +85,7 @@
       <td>{{ book.end_time|time:"H:i" }}</td>
       <td>{{ book.organizer_name }}</td>
       <td>{{ book.purpose }}</td>
+      <td>{{ book.napomena }}</td>
       {% if user.is_authenticated %}
       <td>
         <form style="display: inline-block;" action="{% url 'delete_booking' book.id %} " method="post">

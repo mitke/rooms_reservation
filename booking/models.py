@@ -18,7 +18,7 @@ class Bookings(models.Model):
   organizer_name = models.CharField(max_length=100)
   purpose = models.TextField()
   expected_participants = models.IntegerField(null=True, blank=True)
-  needs_projector = models.BooleanField()
+  napomena = models.CharField(max_length=50, null=True, blank=True)
 
 
 class UserProfile(models.Model):

@@ -10,7 +10,7 @@ class RoomsAdmin(admin.ModelAdmin):
 
 
 class BookingsAdmin(admin.ModelAdmin):
-  list_display = ('room', 'user', 'start_time', 'end_time', 'organizer_name', 'purpose', 'expected_participants', 'needs_projector')
+  list_display = ('room', 'user', 'start_time', 'end_time', 'organizer_name', 'purpose', 'expected_participants', 'napomena')
 
 
 admin.site.register(Rooms, RoomsAdmin)

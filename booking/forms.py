@@ -8,14 +8,15 @@ class BookingForm(forms.ModelForm):
   class Meta:
     model = Bookings
     fields = ['start_time', 'end_time', 'organizer_name', 'purpose',
-               'expected_participants', 'needs_projector']
+               'expected_participants', 'napomena']
     widgets = {
       'start_time': DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
       'end_time': DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
       'organizer_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Organizator'}),
       'purpose': TextInput(attrs={'class': 'form-control', 'placeholder': 'Svrha'}),
       'expected_participants': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Očekivani broj učesnika (arapskim ciframa)'}),
-      'needs_projector': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+      #'needs_projector': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+      'napomena': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Napomena'}),
     }
     labels = {
       'start_time': 'Početak termina',
@@ -23,7 +24,7 @@ class BookingForm(forms.ModelForm):
       'organizer_name': 'Organizator',
       'purpose': 'Svrha',
       'expected_participants': 'Očekivani broj učesnika',
-      'needs_projector': 'Potreban projektor',
+      'napomena': '',
     }
 
 
