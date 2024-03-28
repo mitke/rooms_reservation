@@ -85,7 +85,13 @@
       <td>{{ book.end_time|time:"H:i" }}</td>
       <td>{{ book.organizer_name }}</td>
       <td>{{ book.purpose }}</td>
+
+      {% if book.napomena %}
       <td>{{ book.napomena }}</td>
+      {% else %}
+      <td>&nbsp;</td>
+      {% endif %}
+
       {% if user.is_authenticated %}
       <td>
         <form style="display: inline-block;" action="{% url 'delete_booking' book.id %} " method="post">
