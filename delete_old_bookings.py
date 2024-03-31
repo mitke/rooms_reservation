@@ -5,7 +5,7 @@ def deleteRecords():
   try:
     connection = sqlite3.connect('db.sqlite3')
     cur = connection.cursor()
-    yesterday = datetime.now() - timedelta(days=7)
+    yesterday = datetime.now() - timedelta(days=1)
     cur.execute("DELETE FROM booking_bookings WHERE start_time < ?", (yesterday,))
     connection.commit()
     print("Old records deleted successfully")
