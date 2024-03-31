@@ -1,1 +1,0 @@
-insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('pedijatrija', 'predavanje spec.', 'svakog radnog dana', 4, 2, 'DATE 12:30:00', 'DATE 14:00:00' );
