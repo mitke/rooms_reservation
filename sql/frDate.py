@@ -12,7 +12,7 @@ def main():
   # sql statement for add rezervacije on Monday, Wednesday and Friday
   sql_02 = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('radiologija', 'rezervisano', 'ponedeljakom, sredom i petkom', 1, 2, 'DATE 09:00:00', 'DATE 09:45:00' );"
   
-  with open('sql/rezervacije.sql', 'r', encoding='utf-8') as file:
+  with open('svakog_radnog_dana.sql', 'r', encoding='utf-8') as file:
     content = file.read()
   dofw =  (datetime.now()+timedelta(days=7)).weekday()
   
@@ -25,13 +25,13 @@ def main():
     datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
     content = content.replace('DATE', datum)
     
-  with open('sql/tmp.sql', 'w', encoding='utf-8') as file:  
+  with open('tmp.sql', 'w', encoding='utf-8') as file:  
     file.write(content)
 
   sqlCommands = content.split(';')
 
   try:  
-    connection = sqlite3.connect('db.sqlite3')
+    connection = sqlite3.connect('../db.sqlite3')
     cur = connection.cursor()
     
     # delete old records
