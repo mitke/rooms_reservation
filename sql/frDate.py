@@ -9,7 +9,7 @@ def main():
 
   # sql statement for add English kurs on Wednesday
   sql_01 = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('Engleski', 'kurs', 'skoro svake srede', 2, 2, 'DATE 14:30:00', 'DATE 16:00:00');"
-  # sql statement for add rezervacije on Monday, Wednesday and Friday
+  # sql statement for add radiologija, rezervacije on Monday, Wednesday and Friday
   sql_02 = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('radiologija', 'rezervisano', 'ponedeljakom, sredom i petkom', 1, 2, 'DATE 09:00:00', 'DATE 09:45:00' );"
   
   with open('svakog_radnog_dana.sql', 'r', encoding='utf-8') as file:
