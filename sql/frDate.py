@@ -16,10 +16,10 @@ def main():
     content = file.read()
   dofw =  (datetime.now()+timedelta(days=7)).weekday()
   
-  if dofw == 6:#2:
+  if dofw == 2:
     content = f"{content} {sql_01}"
   
-  if dofw in [0, 2, 4, 6]:
+  if dofw in [0, 2, 4]:
     content = f"{content} {sql_02}"
     
     datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
