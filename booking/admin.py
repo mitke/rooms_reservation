@@ -5,6 +5,10 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 
+#admin.site.site_title = "rezervacije_admin"
+admin.site.site_header = "Administracija rezervacija"
+#admin.site.index_title = "rezervacije_admin"
+
 class RoomsAdmin(admin.ModelAdmin):
   list_display = ('name', 'capacity', 'projector')
 
