@@ -14,7 +14,10 @@ def main():
   
   with open('svakog_radnog_dana.sql', 'r', encoding='utf-8') as file:
     content = file.read()
+    
+  #print(content)  
   dofw =  (datetime.now()+timedelta(days=7)).weekday()
+  #print(dofw)  
   
   if dofw == 2:
     content = f"{content} {sql_01}"
@@ -22,13 +25,16 @@ def main():
   if dofw in [0, 2, 4]:
     content = f"{content} {sql_02}"
     
-    datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
-    content = content.replace('DATE', datum)
+  datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
+  print(datum)
+  content = content.replace('DATE', datum)
+  #print(content)
     
   with open('tmp.sql', 'w', encoding='utf-8') as file:  
     file.write(content)
 
   sqlCommands = content.split(';')
+  #print(sqlCommands)
 
   try:  
     connection = sqlite3.connect('../db.sqlite3')
@@ -42,13 +48,13 @@ def main():
     for sqlComand in sqlCommands:
       cur.execute(sqlComand)
     connection.commit()
-    print("Records created successfully")
+    print(f"{datetime.now()} - Records created successfully")
   except Exception as e:
       print(e)
   finally:
     if connection:
       connection.close()
-      print("Database connection is closed")
+      print(f"{datetime.now()} - Database connection is closed")
 
 if __name__ == '__main__':
   main()
