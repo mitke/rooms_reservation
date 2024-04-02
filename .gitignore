@@ -163,3 +163,4 @@ migrations/
 booking/__pycache__/
 *.zip
 rezervacije/settings.py
+sql/tmp.sql
