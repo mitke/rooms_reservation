@@ -7,6 +7,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 def home(request):
@@ -100,7 +102,9 @@ def book_room(request, room_id):
         booking.user = request.user
         booking.save()
         messages.success(request, 'Prostorija je uspoešno rezervisana')
-      return redirect('home')
+      #return redirect('home')
+      redirect_url = reverse('home') + '#' + str(room_id)
+      return HttpResponseRedirect(redirect_url)
   else:
     form = BookingForm()  
 
