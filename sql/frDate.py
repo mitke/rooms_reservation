@@ -8,24 +8,37 @@ def main():
   #os.chdir(os.path.dirname(os.getcwd()))
 
   # sql statement for add English kurs on Wednesday
-  sql_01 = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('Engleski', 'kurs', 'skoro svake srede', 2, 2, 'DATE 14:30:00', 'DATE 16:00:00');"
+  sql_sreda = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('Engleski', 'kurs', 'skoro svake srede', 2, 2, 'DATE 14:30:00', 'DATE 16:00:00');"
+  
   # sql statement for add radiologija, rezervacije on Monday, Wednesday and Friday
-  sql_02 = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('radiologija', 'rezervisano', 'ponedeljakom, sredom i petkom', 1, 2, 'DATE 09:00:00', 'DATE 09:45:00' );"
+  sql_ponSrPet = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('radiologija', 'rezervisano', 'ponedeljakom, sredom i petkom', 1, 2, 'DATE 09:00:00', 'DATE 09:45:00');"
+  # sql
+  sql_utorak = "delete from booking_bookings where organizer_name like 'Sofija%' and start_time like 'DATE%'; insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('gl.sestra Milica Pavićevć', 'Sestrinstvo', 'svakog utorka', 1, 2, 'DATE 11:30:00', 'DATE 13:00:00'); insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('Sofija', 'edukacija', 'svakog utorka', 3, 2, 'DATE 12:00:00', 'DATE 13:00:00');"
   
   with open('svakog_radnog_dana.sql', 'r', encoding='utf-8') as file:
     content = file.read()
     
   dofw =  (datetime.now()+timedelta(days=7)).weekday()
+<<<<<<< HEAD
+=======
+  
+  if dofw == 1:
+    content = f"{content} {sql_utorak}"
+>>>>>>> 819f5611fbae03cdcc0d1610fa47495d916bb5fe
   
   if dofw == 2:
-    content = f"{content} {sql_01}"
+    content = f"{content} {sql_sreda}"
   
   if dofw in [0, 2, 4]:
-    content = f"{content} {sql_02}"
+    content = f"{content} {sql_ponSrPet}"
     
   datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
   content = content.replace('DATE', datum)
+<<<<<<< HEAD
     
+=======
+      
+>>>>>>> 819f5611fbae03cdcc0d1610fa47495d916bb5fe
   with open('tmp.sql', 'w', encoding='utf-8') as file:  
     file.write(content)
 
