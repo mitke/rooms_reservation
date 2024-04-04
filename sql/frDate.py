@@ -15,9 +15,7 @@ def main():
   with open('svakog_radnog_dana.sql', 'r', encoding='utf-8') as file:
     content = file.read()
     
-  #print(content)  
   dofw =  (datetime.now()+timedelta(days=7)).weekday()
-  #print(dofw)  
   
   if dofw == 2:
     content = f"{content} {sql_01}"
@@ -26,15 +24,12 @@ def main():
     content = f"{content} {sql_02}"
     
   datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
-  print(datum)
   content = content.replace('DATE', datum)
-  #print(content)
     
   with open('tmp.sql', 'w', encoding='utf-8') as file:  
     file.write(content)
 
   sqlCommands = content.split(';')
-  #print(sqlCommands)
 
   try:  
     connection = sqlite3.connect('../db.sqlite3')
