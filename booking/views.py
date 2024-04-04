@@ -11,12 +11,14 @@ from django.contrib import messages
 
 def home(request):
   current_time = timezone.now()
+  #print(current_time)
+  print(timezone.now() + timezone.timedelta(days=14))
   rooms = Rooms.objects.all()
   room_availability = {}
 
   for soba in rooms:
-    #upcoming_bookings = Bookings.objects.filter(room=soba, start_time__gte=current_time, start_time__lt=current_time + timezone.timedelta(days=14)).order_by('start_time') # samo 14 dana
-    upcoming_bookings = Bookings.objects.filter(room=soba, start_time__gte=current_time).order_by('start_time')
+    upcoming_bookings = Bookings.objects.filter(room=soba, start_time__gte=current_time, start_time__lt=current_time + timezone.timedelta(days=14)).order_by('start_time') # samo 14 dana unapred
+    #upcoming_bookings = Bookings.objects.filter(room=soba, start_time__gte=current_time, end_time__gte=current_time).order_by('start_time')
     room_availability[soba] = upcoming_bookings
   return render(request, 'booking/home.html', {'rooms': rooms, 'room_availability': room_availability})
 
