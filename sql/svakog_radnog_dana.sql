@@ -1,5 +1,5 @@
 -- UČIONICA
-insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('pedijatrija', 'jut sastanak', 'svakog radnog dana', 1, 2, 'DATE 07:30:00', 'DATE 08:15:00' );
+insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('pedijatrija', 'jut. sastanak', 'svakog radnog dana', 1, 2, 'DATE 07:30:00', 'DATE 08:15:00' );
 insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('Sofija', 'edukacija',  'svakog radnog dana', 1, 2, 'DATE 12:00:00', 'DATE 13:00:00' );
 -- SALA-D
 insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('hirurgija', 'jut.sastanak', 'svakog radnog dana', 2, 2, 'DATE 07:30:00', 'DATE 08:15:00' );

@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 import sqlite3
-#import os
+import os
 
 
 def main():
   # Change the current working directory to the root directory of your project
-  #os.chdir(os.path.dirname(os.getcwd()))
+  os.chdir('/var/www/html/django/rooms_reservation/sql')
 
   # sql statement for add English kurs on Wednesday
   sql_sreda = "insert into booking_bookings (organizer_name, purpose, napomena, room_id, user_id, start_time, end_time) VALUES ('Engleski', 'kurs', 'skoro svake srede', 2, 2, 'DATE 14:30:00', 'DATE 16:00:00');"
@@ -19,12 +19,9 @@ def main():
     content = file.read()
     
   dofw =  (datetime.now()+timedelta(days=7)).weekday()
-<<<<<<< HEAD
-=======
   
   if dofw == 1:
     content = f"{content} {sql_utorak}"
->>>>>>> 819f5611fbae03cdcc0d1610fa47495d916bb5fe
   
   if dofw == 2:
     content = f"{content} {sql_sreda}"
@@ -34,11 +31,7 @@ def main():
     
   datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
   content = content.replace('DATE', datum)
-<<<<<<< HEAD
     
-=======
-      
->>>>>>> 819f5611fbae03cdcc0d1610fa47495d916bb5fe
   with open('tmp.sql', 'w', encoding='utf-8') as file:  
     file.write(content)
 
@@ -55,10 +48,13 @@ def main():
     # adding records for next week
     for sqlComand in sqlCommands:
       cur.execute(sqlComand)
+    
     connection.commit()
     print(f"{datetime.now()} - Records created successfully")
+  
   except Exception as e:
       print(e)
+  
   finally:
     if connection:
       connection.close()
