@@ -92,8 +92,8 @@ def book_room(request, room_id):
         expected_participants = 0
       needs_projector = request.POST.get('needs_projector')
       
-      message = provera(start_time_aware, end_time_aware, current_time, expected_participants,
-            soba_capacity, soba_projector, needs_projector, room_id, None)
+      message = provera(start_time_aware, end_time_aware, current_time, expected_participants, soba_capacity, soba_projector, needs_projector, room_id, None)
+
       if message != None:
         messages.error(request, message)
         return render(request, 'booking/book_room.html', {'room': soba, 'form': form})
@@ -103,7 +103,6 @@ def book_room(request, room_id):
         booking.user = request.user
         booking.save()
         messages.success(request, 'Prostorija je uspoešno rezervisana')
-      #return redirect('home')
         redirect_url = reverse('home') + '#' + str(room_id)
         return HttpResponseRedirect(redirect_url)
     
@@ -156,12 +155,13 @@ def edit_booking(request, booking_id):
             soba_capacity, soba_projector, needs_projector, room_id, booking_id )
       if message != None:
         messages.error(request, message)
+        return render(request, 'booking/book_room.html', {'form': form})
       else:
         form.save()
         messages.success(request, 'Rezervacija je uspoešno promenjena')
-      #return redirect('home')
-      redirect_url = reverse('home') + '#' + str(room_id)
-      return HttpResponseRedirect(redirect_url)
+        #return redirect('home')
+        redirect_url = reverse('home') + '#' + str(room_id)
+        return HttpResponseRedirect(redirect_url)
       
   else:
     form = BookingForm(instance=booking)
