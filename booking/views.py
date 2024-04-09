@@ -96,6 +96,7 @@ def book_room(request, room_id):
             soba_capacity, soba_projector, needs_projector, room_id, None)
       if message != None:
         messages.error(request, message)
+        return render(request, 'booking/book_room.html', {'room': soba, 'form': form})
       else:
         booking = form.save(commit=False)
         booking.room = soba
@@ -103,8 +104,9 @@ def book_room(request, room_id):
         booking.save()
         messages.success(request, 'Prostorija je uspoešno rezervisana')
       #return redirect('home')
-      redirect_url = reverse('home') + '#' + str(room_id)
-      return HttpResponseRedirect(redirect_url)
+        redirect_url = reverse('home') + '#' + str(room_id)
+        return HttpResponseRedirect(redirect_url)
+    
   else:
     form = BookingForm()  
 
@@ -119,7 +121,9 @@ def delete_booking(request, booking_id):
   booking.delete()
   #else:
     #messages.error(request, 'You do not have permission to edit this reservation.')
-  return redirect('home')
+  #return redirect('home')
+  redirect_url = reverse('home') + '#' + str(room_id)
+  return HttpResponseRedirect(redirect_url)
 
 
 @login_required
@@ -155,7 +159,9 @@ def edit_booking(request, booking_id):
       else:
         form.save()
         messages.success(request, 'Rezervacija je uspoešno promenjena')
-      return redirect('home')
+      #return redirect('home')
+      redirect_url = reverse('home') + '#' + str(room_id)
+      return HttpResponseRedirect(redirect_url)
       
   else:
     form = BookingForm(instance=booking)
