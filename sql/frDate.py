@@ -19,9 +19,12 @@ def main():
     content = file.read()
     
   dofw =  (datetime.now()+timedelta(days=7)).weekday()
+<<<<<<< HEAD
+=======
   
   if dofw == 1:
     content = f"{content} {sql_utorak}"
+>>>>>>> 819f5611fbae03cdcc0d1610fa47495d916bb5fe
   
   if dofw == 2:
     content = f"{content} {sql_sreda}"
@@ -31,12 +34,15 @@ def main():
     
   datum = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
   content = content.replace('DATE', datum)
+<<<<<<< HEAD
+    
+=======
       
+>>>>>>> 819f5611fbae03cdcc0d1610fa47495d916bb5fe
   with open('tmp.sql', 'w', encoding='utf-8') as file:  
     file.write(content)
 
   sqlCommands = content.split(';')
-  #print(sqlCommands)
 
   try:  
     connection = sqlite3.connect('../db.sqlite3')
