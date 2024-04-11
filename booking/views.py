@@ -93,10 +93,7 @@ def book_room(request, room_id):
       needs_projector = request.POST.get('needs_projector')
       
       message = provera(start_time_aware, end_time_aware, current_time, expected_participants, soba_capacity, soba_projector, needs_projector, room_id, None)
-<<<<<<< HEAD
-=======
 
->>>>>>> ba756ac18c780e301af87c3bb072139b5e4e5024
       if message != None:
         messages.error(request, message)
         return render(request, 'booking/book_room.html', {'room': soba, 'form': form})
