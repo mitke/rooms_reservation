@@ -122,7 +122,7 @@ def delete_booking(request, booking_id):
   #else:
     #messages.error(request, 'You do not have permission to edit this reservation.')
   #return redirect('home')
-  redirect_url = reverse('home') + '#' + str(room_id)
+  redirect_url = reverse('home') + '#' + str(booking.room_id)
   return HttpResponseRedirect(redirect_url)
 
 
