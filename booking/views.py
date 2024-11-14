@@ -102,7 +102,7 @@ def book_room(request, room_id):
         booking.room = soba
         booking.user = request.user
         booking.save()
-        messages.success(request, 'Prostorija je uspoešno rezervisana')
+        messages.success(request, 'Prostorija je uspešno rezervisana')
         #return redirect('home')                          # ovo vraća uvek na vrh
         redirect_url = reverse('home') + '#' + str(room_id)   # ova dva reda 
         return HttpResponseRedirect(redirect_url)             # vraćaju na anchor tag
