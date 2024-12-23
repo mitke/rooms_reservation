@@ -69,7 +69,7 @@ def room_list(request):
   return render(request, 'booking/room_list.html', {'rooms': rooms, 'room_availability': room_availability})
 
 
-@login_required
+@login_required()
 def book_room(request, room_id):
   soba = Rooms.objects.get(pk=room_id)
   soba_capacity = soba.capacity
@@ -113,7 +113,7 @@ def book_room(request, room_id):
   return render(request, 'booking/book_room.html', {'room': soba, 'form': form})
 
 
-@login_required
+@login_required(login_url='/login/')
 def delete_booking(request, booking_id):
   booking = get_object_or_404(Bookings, pk=booking_id)
   
@@ -126,7 +126,7 @@ def delete_booking(request, booking_id):
   return HttpResponseRedirect(redirect_url)
 
 
-@login_required
+@login_required(login_url='/login/')
 def edit_booking(request, booking_id):
   booking = get_object_or_404(Bookings, pk=booking_id)
   room_name = booking.room.name
@@ -159,7 +159,7 @@ def edit_booking(request, booking_id):
         return render(request, 'booking/book_room.html', {'form': form})
       else:
         form.save()
-        messages.success(request, 'Rezervacija je uspoešno promenjena')
+        messages.success(request, 'Rezervacija je uspešno promenjena')
         #return redirect('home')
         redirect_url = reverse('home') + '#' + str(room_id)
         return HttpResponseRedirect(redirect_url)
